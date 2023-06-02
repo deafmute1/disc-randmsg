@@ -3,3 +3,4 @@ version: '3'
 services:
   randmsgbot:
     build: .
+    env_file: 'stack.env'
