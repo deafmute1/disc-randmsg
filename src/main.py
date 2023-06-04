@@ -31,9 +31,13 @@ def run():
                 messages = [m async for m in ctx.channel.history(limit=100, around=on_date)]
             except: 
                 #the above seems to break the library itself on some (large?) channels, so this is a workaround.
-                #this is cursed bcz loop will go on for _ages_ in a sparsely used channel, making it slower than randmsgproper. 
+                #this is cursed bcz loop will go on for _ages_ in a very sparsely used channel, making it slower than randmsgproper. 
                 #let hope that sparsely populated channels work with the above.... 
-                messages = [m async for m in ctx.channel.history(limit=100, after=on_date-one_day, before=on_date+one_day)]
+                messages = [m async for m in ctx.channel.history(
+                    limit=100, 
+                    after=on_date, 
+                    before=on_date+(one_day*7)
+                )]
             on_date = on_date + one_day if on_date < datetime.now(tz) else first_date -  one_day
             
         
